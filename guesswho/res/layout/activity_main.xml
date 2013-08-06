@@ -2,20 +2,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".PingActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Guess Who?"
+        android:textSize="36sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/panda" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:onClick="buttonClicked"
-        android:text="Ping backend" />
-
-    <TextView
-        android:id="@+id/response_text"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_marginTop="10dp"
+        android:onClick="startButtonClicked"
+        android:text="Start" />
 
 </LinearLayout>

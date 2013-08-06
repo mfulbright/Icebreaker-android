@@ -12,14 +12,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-public class MainActivity extends SherlockActivity implements Response.Listener<String>, Response.ErrorListener {
+public class PingActivity extends SherlockActivity implements Response.Listener<String>, Response.ErrorListener {
 
 	private TextView responseText;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ping);
         responseText = (TextView) findViewById(R.id.response_text);
     }
     

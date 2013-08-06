@@ -25,6 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.dropbox.guesswho.PingActivity"
+            android:label="Ping!" />
+        <activity
+            android:name="com.dropbox.guesswho.PlayActivity"
+            android:label="@string/title_activity_play" >
+        </activity>
     </application>
 
 </manifest>
