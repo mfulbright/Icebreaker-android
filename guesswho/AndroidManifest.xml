@@ -4,7 +4,11 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -16,21 +20,52 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <service android:name="com.bump.api.BumpAPI" >
+            <intent-filter>
+                <action android:name="com.bump.api.IBumpAPI" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name="com.dropbox.guesswho.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="guesswho" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.dropbox.guesswho.PingActivity"
             android:label="Ping!" />
         <activity
-            android:name="com.dropbox.guesswho.PlayActivity"
+            android:name="com.dropbox.guesswho.GetTargetActivity"
             android:label="@string/title_activity_play" >
+        </activity>
+        <activity
+            android:name="com.dropbox.guesswho.WelcomeActivity"
+            android:label="@string/title_activity_welcome" >
+        </activity>
+        <activity
+            android:name="com.dropbox.guesswho.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.dropbox.guesswho.ShowTargetActivity"
+            android:label="@string/title_activity_show_target" >
+        </activity>
+        <activity
+            android:name="com.dropbox.guesswho.AuthenticateActivity"
+            android:label="@string/title_activity_authenticate" >
         </activity>
     </application>
 

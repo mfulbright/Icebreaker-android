@@ -1,66 +1,48 @@
 package com.dropbox.guesswho;
 
-import java.util.ArrayList;
-
-import org.json.JSONObject;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.android.volley.Request.Method;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-public class MainActivity extends SherlockActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-    
-    public void startButtonClicked(View v) {
-    	RequestQueue queue = GuessWhoApplication.getRequestQueue();
-//    	JsonObjectRequest request = new JsonObjectRequest(
-//    			Method.GET, 
-//    			"http://limitless-caverns-4433.herokuapp.com/",
-//    			null,
-//    			this,
-//    			this
-//    			);
-//    	queue.add(request);
-    	onResponse(null);
-    }
-    
-    @Override
-	public void onResponse(JSONObject response) {
-		// parse JSONObject here
-    	int dropboxerNumber = 1;
-    	String clue = "My family owns Santa Barbara Honda";
-    	ArrayList<String> helperUrls = new ArrayList<String>();
-    	helperUrls.add("http://limitless-caverns-4433.herokuapp.com/images/1");
-    	helperUrls.add("http://limitless-caverns-4433.herokuapp.com/images/2");
-    	Intent playIntent = new Intent(this, PlayActivity.class);
-    	playIntent.putExtra(PlayActivity.DROPBOXER_NUMBER_EXTRA, dropboxerNumber);
-    	playIntent.putExtra(PlayActivity.CLUE_EXTRA, clue);
-    	playIntent.putStringArrayListExtra(PlayActivity.HELPER_URLS_EXTRA, helperUrls);
-    	startActivity(playIntent);
-	}
+public class MainActivity extends BaseActivity {
 
 	@Override
-	public void onErrorResponse(VolleyError error) {
-		// show a popup or something
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu; this adds items to the action bar if it is present.
-	    getSupportMenuInflater().inflate(R.menu.main, menu);
-	    return true;
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// this activity is only used to determine the correct application to
+		// show on launch
+		SharedPreferences appPrefs = GuessWhoApplication
+				.getApplicationPreferences();
+		if (appPrefs.contains(GuessWhoApplication.USER_ID_KEY)) {
+			// they're logged in
+			if (appPrefs.contains(GuessWhoApplication.TARGET_ID_KEY)) {
+				// they have a target as well - show the target
+				Intent newIntent = new Intent(this, ShowTargetActivity.class);
+				startActivity(newIntent);
+			} else {
+				// they don't have a target set - kick it over to the get
+				// target screen
+				Intent newIntent = new Intent(this, GetTargetActivity.class);
+				startActivity(newIntent);
+			}
+		} else {
+			// they need to log in. check if they were bounced here from a
+			// confirmation email
+			Intent intent = getIntent();
+			Uri data = intent.getData();
+			if (data != null) {
+				// we were launched from a confirmation email link
+				log("Confirmation email redirect detected - from " + data);
+				String userId = data.toString().split("://")[1];
+				Intent newIntent = new Intent(this, AuthenticateActivity.class);
+				newIntent.putExtra(AuthenticateActivity.USER_ID_EXTRA, userId);
+				startActivity(newIntent);
+			} else {
+				// a totally new user! let them log in
+				Intent newIntent = new Intent(this, LoginActivity.class);
+				startActivity(newIntent);
+			}
+		}
 	}
 }

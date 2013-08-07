@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".PingActivity" >
+    tools:context=".LoginActivity" >
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,16 +13,22 @@
         android:text="Guess Who?"
         android:textSize="36sp" />
 
+    <EditText
+        android:id="@+id/email_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your @dropbox email address"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="signUpButtonClicked"
+        android:text="Sign Up" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/panda" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:onClick="startButtonClicked"
-        android:text="Start" />
 
 </LinearLayout>
