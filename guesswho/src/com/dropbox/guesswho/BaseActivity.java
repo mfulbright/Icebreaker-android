@@ -4,16 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class BaseActivity extends SherlockActivity {
+public class BaseActivity extends SherlockFragmentActivity {
 
 	private ProgressBar progressBar;
 
@@ -23,10 +21,11 @@ public class BaseActivity extends SherlockActivity {
 		className = className.substring(className.lastIndexOf(".") + 1);
 		String methodName = caller.getMethodName();
 		int lineNumber = caller.getLineNumber();
-		if(message == null) {
+		if (message == null) {
 			message = "null";
 		}
-		Log.e(className + "." + methodName + " (line " + lineNumber + ")", message.toString());
+		Log.e(className + "." + methodName + " (line " + lineNumber + ")",
+				message.toString());
 	}
 
 	protected void log() {
@@ -70,8 +69,9 @@ public class BaseActivity extends SherlockActivity {
 			}
 		}
 	}
-	
+
 	protected void alert(String title, String message) {
-		new AlertDialog.Builder(this).setTitle(title).setMessage(message).show();
+		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
+				.show();
 	}
 }

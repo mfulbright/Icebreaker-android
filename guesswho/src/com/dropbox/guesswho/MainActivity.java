@@ -16,13 +16,15 @@ public class MainActivity extends BaseActivity {
 				.getApplicationPreferences();
 		if (appPrefs.contains(GuessWhoApplication.USER_ID_KEY)) {
 			// they're logged in
-			if (appPrefs.contains(GuessWhoApplication.TARGET_ID_KEY)) {
+			if (appPrefs.contains(GuessWhoApplication.TARGET_ID_KEY)
+					&& appPrefs.getBoolean(
+							GuessWhoApplication.ACCEPTED_TARGET_KEY, false)) {
 				// they have a target as well - show the target
 				Intent newIntent = new Intent(this, ShowTargetActivity.class);
 				startActivity(newIntent);
 			} else {
-				// they don't have a target set - kick it over to the get
-				// target screen
+				// they haven't accepted a target yet - kick it over to the 
+				// get target screen
 				Intent newIntent = new Intent(this, GetTargetActivity.class);
 				startActivity(newIntent);
 			}

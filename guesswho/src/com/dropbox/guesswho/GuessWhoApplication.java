@@ -17,6 +17,8 @@ public class GuessWhoApplication extends Application {
 
 	public static final String USER_ID_KEY = "GuessWhoApplication USER_ID_KEY";
 	public static final String TARGET_ID_KEY = "GuessWhoApplication TARGET_ID_KEY";
+	public static final String ACCEPTED_TARGET_KEY = "GuessWhoApplication ACCEPTED_TARGET_KEY";
+	public static final String TARGET_CLUE_KEY = "GuessWhoApplication TARGET_CLUE_KEY";
 
 	private static RequestQueue requestQueue;
 	private static SharedPreferences applicationPreferences;

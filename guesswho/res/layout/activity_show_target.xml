@@ -17,7 +17,7 @@
 
         <!-- todo add a src here -->
 
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -34,14 +34,38 @@
         android:layout_height="wrap_content"
         android:text="Meet these HALPers to get clues:" />
 
-    <!-- todo probably make this multiple columns in some way -->
-
     <LinearLayout
-        android:id="@+id/halper_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/first_halper_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/second_halper_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/third_halper_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/fourth_halper_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,11 +80,12 @@
             android:onClick="skipButtonClicked"
             android:text="Skip" />
 
+        <!-- todo image on the leaderboard button -->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="todoButtonClicked"
-            android:text="Todo" />
+            android:onClick="leaderboardButtonClicked"
+            android:text="Leaderboard" />
     </LinearLayout>
 
 </LinearLayout>

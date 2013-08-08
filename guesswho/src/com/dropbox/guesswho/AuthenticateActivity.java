@@ -67,6 +67,14 @@ public class AuthenticateActivity extends BaseActivity implements
 					// the already authed userId, so that's what we'll do here
 					log("Received a user id that is already authed. Id: "
 							+ userId);
+					// todo keep this here?
+					appPrefs = GuessWhoApplication
+							.getApplicationPreferences();
+					appPrefs.edit()
+							.putString(GuessWhoApplication.USER_ID_KEY, userId)
+							.commit();
+					intent = new Intent(this, GetTargetActivity.class);
+					startActivity(intent);
 					break;
 				default:
 					log("Unexpected value for already_authenticated: "
