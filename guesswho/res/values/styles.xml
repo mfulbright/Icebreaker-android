@@ -29,12 +29,12 @@
     </style>
 
     <style name="PositiveButtonStyle">
-        <item name="android:background">@drawable/positive_button_background</item>
+        <item name="android:background">@drawable/positive_button</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
     <style name="NeutralButtonStyle">
-        <item name="android:background">@drawable/neutral_button_background</item>
+        <item name="android:background">@drawable/neutral_button</item>
         <item name="android:textColor">#666666</item>
     </style>
     

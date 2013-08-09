@@ -5,11 +5,11 @@
     <!-- a 270 degree angle is a top to bottom gradient -->
     <gradient
         android:angle="270"
-        android:endColor="@color/darker_blue"
-        android:startColor="@color/lighter_blue" />
+        android:endColor="@color/darker_blue_tint"
+        android:startColor="@color/lighter_blue_tint" />
 
     <stroke
         android:width="1px"
-        android:color="#0d5b97" />
+        android:color="@color/positive_border_tint" />
 
 </shape>

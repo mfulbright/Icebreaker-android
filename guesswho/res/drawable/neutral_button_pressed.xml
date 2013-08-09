@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <!-- a 270 degree angle is a top to bottom gradient -->
+    <gradient
+        android:angle="270"
+        android:endColor="@color/darker_gray_tint"
+        android:startColor="@color/lighter_gray_tint" />
+
+    <stroke
+        android:width="1px"
+        android:color="@color/neutral_border_tint" />
+
+</shape>

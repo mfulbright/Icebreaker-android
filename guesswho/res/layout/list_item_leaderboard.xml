@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:orientation="horizontal" >
 
     <!--
@@ -12,22 +11,30 @@
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/leader_image"
-        android:layout_width="75dp"
-        android:layout_height="150dp" />
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/leader_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/leader_image"
         android:gravity="center"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/leader_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_below="@id/leader_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/leader_image"
+        android:textColor="@color/lighter_blue"
+        android:textSize="18sp" />
 
-</LinearLayout>
+</RelativeLayout>

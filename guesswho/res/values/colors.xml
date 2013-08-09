@@ -2,10 +2,20 @@
 <resources>
 
     <color name="white">#FFFFFF</color>
+    <color name="medium_gray">#efefef</color>
+    
     <color name="lighter_blue">#37a3eb</color>
     <color name="darker_blue">#2181cf</color>
     <color name="lighter_gray">#fbfbfb</color>
     <color name="darker_gray">#e4e4e4</color>
-    <color name="medium_gray">#efefef</color>
+    <color name="positive_border">#0d5b97</color>
+    <color name="neutral_border">#aaaaaa</color>
+    
+    <color name="lighter_blue_tint">#2c82bc</color>
+    <color name="darker_blue_tint">#1a67a5</color>
+    <color name="lighter_gray_tint">#c8c8c8</color>
+    <color name="darker_gray_tint">#b6b6b6</color>
+    <color name="positive_border_tint">#0d5b97</color>
+    <color name="neutral_border_tint">#888888</color>
 
 </resources>
