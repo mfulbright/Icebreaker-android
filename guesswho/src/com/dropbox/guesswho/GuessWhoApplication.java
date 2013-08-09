@@ -17,8 +17,8 @@ public class GuessWhoApplication extends Application {
 
 	public static final String USER_ID_KEY = "GuessWhoApplication USER_ID_KEY";
 	public static final String TARGET_ID_KEY = "GuessWhoApplication TARGET_ID_KEY";
-	public static final String ACCEPTED_TARGET_KEY = "GuessWhoApplication ACCEPTED_TARGET_KEY";
-	public static final String TARGET_CLUE_KEY = "GuessWhoApplication TARGET_CLUE_KEY";
+//	public static final String ACCEPTED_TARGET_KEY = "GuessWhoApplication ACCEPTED_TARGET_KEY";
+//	public static final String TARGET_CLUE_KEY = "GuessWhoApplication TARGET_CLUE_KEY";
 
 	private static RequestQueue requestQueue;
 	private static SharedPreferences applicationPreferences;
@@ -39,34 +39,34 @@ public class GuessWhoApplication extends Application {
 		return applicationPreferences;
 	}
 
-	public static void saveHalpers(ArrayList<String> halperUrls) {
-		SharedPreferences.Editor editor = applicationPreferences.edit();
-		if (applicationPreferences.contains(NUM_HALPERS_KEY)) {
-			int oldNumHalpers = applicationPreferences.getInt(NUM_HALPERS_KEY,
-					0);
-			for (int i = 0; i < oldNumHalpers; i++) {
-				editor.remove(HALPER_KEY_PREFIX + i);
-			}
-			editor.remove(NUM_HALPERS_KEY);
-		}
-		editor.putInt(NUM_HALPERS_KEY, halperUrls.size());
-		for (int i = 0; i < halperUrls.size(); i++) {
-			editor.putString(HALPER_KEY_PREFIX + i, halperUrls.get(i));
-		}
-		editor.commit();
-	}
-
-	public static ArrayList<String> getHalpers() {
-		ArrayList<String> halperUrls = new ArrayList<String>();
-		if (applicationPreferences.contains(NUM_HALPERS_KEY)) {
-			int numHalpers = applicationPreferences.getInt(NUM_HALPERS_KEY, 0);
-			for (int i = 0; i < numHalpers; i++) {
-				String key = HALPER_KEY_PREFIX + i;
-				if (applicationPreferences.contains(key)) {
-					halperUrls.add(applicationPreferences.getString(key, ""));
-				}
-			}
-		}
-		return halperUrls;
-	}
+//	public static void saveHalpers(ArrayList<String> halperUrls) {
+//		SharedPreferences.Editor editor = applicationPreferences.edit();
+//		if (applicationPreferences.contains(NUM_HALPERS_KEY)) {
+//			int oldNumHalpers = applicationPreferences.getInt(NUM_HALPERS_KEY,
+//					0);
+//			for (int i = 0; i < oldNumHalpers; i++) {
+//				editor.remove(HALPER_KEY_PREFIX + i);
+//			}
+//			editor.remove(NUM_HALPERS_KEY);
+//		}
+//		editor.putInt(NUM_HALPERS_KEY, halperUrls.size());
+//		for (int i = 0; i < halperUrls.size(); i++) {
+//			editor.putString(HALPER_KEY_PREFIX + i, halperUrls.get(i));
+//		}
+//		editor.commit();
+//	}
+//
+//	public static ArrayList<String> getHalpers() {
+//		ArrayList<String> halperUrls = new ArrayList<String>();
+//		if (applicationPreferences.contains(NUM_HALPERS_KEY)) {
+//			int numHalpers = applicationPreferences.getInt(NUM_HALPERS_KEY, 0);
+//			for (int i = 0; i < numHalpers; i++) {
+//				String key = HALPER_KEY_PREFIX + i;
+//				if (applicationPreferences.contains(key)) {
+//					halperUrls.add(applicationPreferences.getString(key, ""));
+//				}
+//			}
+//		}
+//		return halperUrls;
+//	}
 }

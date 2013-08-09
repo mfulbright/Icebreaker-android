@@ -12,5 +12,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_show_target">ShowTargetActivity</string>
     <string name="title_activity_authenticate">AuthenticateActivity</string>
+    <string name="title_activity_leaderboard">LeaderboardActivity</string>
+    <string name="title_activity_add_fun_fact">AddFunFactActivity</string>
 
 </resources>

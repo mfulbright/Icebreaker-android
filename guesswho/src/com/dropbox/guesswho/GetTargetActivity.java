@@ -29,6 +29,8 @@ public class GetTargetActivity extends BaseActivity implements
 	private TextView numberTextView;
 	private TextView clueTextView;
 	private LinearLayout buttonLayout;
+	private String clue;
+	private ArrayList<String> halperUrls;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +43,13 @@ public class GetTargetActivity extends BaseActivity implements
 
 		SharedPreferences appPrefs = GuessWhoApplication
 				.getApplicationPreferences();
-		if (appPrefs.contains(GuessWhoApplication.TARGET_ID_KEY)) {
-			// a target has already been downloaded - just show it
-			displayTarget();
-		} else {
-			// we need to download a target
-			String userId = appPrefs.getString(GuessWhoApplication.USER_ID_KEY, "");
-			RequestQueue requestQueue = GuessWhoApplication.getRequestQueue();
-			JsonObjectRequest request = new JsonObjectRequest(Method.GET,
-					"http://limitless-caverns-4433.herokuapp.com/users/" + userId + "/new_assignment", null, this, this);
-			requestQueue.add(request);
-			startShowLoading();
-		}
+		String userId = appPrefs.getString(GuessWhoApplication.USER_ID_KEY, "");
+		RequestQueue requestQueue = GuessWhoApplication.getRequestQueue();
+		JsonObjectRequest request = new JsonObjectRequest(Method.GET,
+				"http://limitless-caverns-4433.herokuapp.com/users/" + userId
+						+ "/current_assignment", null, this, this);
+		requestQueue.add(request);
+		startShowLoading();
 	}
 
 	@Override
@@ -60,24 +57,21 @@ public class GetTargetActivity extends BaseActivity implements
 		stopShowLoading();
 		log(response);
 		try {
-			String clue = response.getString("fact");
+			clue = response.getString("fact");
 			String targetId = response.getString("target_id");
 			JSONArray halperArray = response.getJSONArray("halpers");
-			log("parsed");
-			ArrayList<String> halperUrls = new ArrayList<String>();
+			halperUrls = new ArrayList<String>();
 			for (int i = 0; i < halperArray.length(); i++) {
-				halperUrls.add(halperArray.getString(i));
+				JSONObject imageObject = halperArray.getJSONObject(i);
+				halperUrls.add(imageObject.getString("image"));
 			}
 			GuessWhoApplication.getApplicationPreferences().edit()
 					.putString(GuessWhoApplication.TARGET_ID_KEY, targetId)
-					.putBoolean(GuessWhoApplication.ACCEPTED_TARGET_KEY, false)
-					.putString(GuessWhoApplication.TARGET_CLUE_KEY, clue)
 					.commit();
-			GuessWhoApplication.saveHalpers(halperUrls);
-			log("saved");
-			displayTarget();
+			clueTextView.setText(clue);
+			clueTextView.setVisibility(View.VISIBLE);
+			buttonLayout.setVisibility(View.VISIBLE);
 		} catch (JSONException e) {
-			log("exception");
 			log(e);
 		}
 	}
@@ -86,25 +80,16 @@ public class GetTargetActivity extends BaseActivity implements
 	public void onErrorResponse(VolleyError error) {
 		stopShowLoading();
 		log(error);
-		alert("Network error", "We had a problem downloading your target - try again!");
-	}
-	
-	private void displayTarget() {
-		log("displaying");
-		// todo numberTextView?
-		SharedPreferences appPrefs = GuessWhoApplication.getApplicationPreferences();
-		String clue = appPrefs.getString(GuessWhoApplication.TARGET_CLUE_KEY, "No clue");
-		clueTextView.setText(clue);
-		clueTextView.setVisibility(View.VISIBLE);
-		buttonLayout.setVisibility(View.VISIBLE);
+		alert("Network error",
+				"We had a problem downloading your target - try again!");
 	}
 
 	public void playButtonClicked(View v) {
 		log();
-		SharedPreferences appPrefs = GuessWhoApplication.getApplicationPreferences();
-		appPrefs.edit().putBoolean(GuessWhoApplication.ACCEPTED_TARGET_KEY, true);
 		// kick it over to the show target activity
 		Intent intent = new Intent(this, ShowTargetActivity.class);
+		intent.putExtra(ShowTargetActivity.CLUE_EXTRA, clue);
+		intent.putExtra(ShowTargetActivity.HALPER_URLS_EXTRA, halperUrls);
 		startActivity(intent);
 	}
 
@@ -126,6 +111,7 @@ public class GetTargetActivity extends BaseActivity implements
 				builder.setNegativeButton("No", null);
 				return builder.create();
 			}
-		}.show(getSupportFragmentManager(), "Useless GetTargetActivity Popup Key");
+		}.show(getSupportFragmentManager(),
+				"Useless GetTargetActivity Popup Key");
 	}
 }

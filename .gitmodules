@@ -1,6 +1,7 @@
 [submodule "volley"]
 	path = volley
-	url = https://github.com/mfulbright/android-volley.git
+    url = https://github.com/mfulbright/android-volley.git
 [submodule "bump-api-android"]
-	path = bump-api-android
-	url = https://github.com/bumptech/bump-api-android.git
+    path = bump-api-android
+    url = https://github.com/bumptech/bump-api-android.git
+
