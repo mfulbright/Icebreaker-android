@@ -21,6 +21,7 @@ public class FunFactPagerAdapter extends PagerAdapter {
 	public FunFactPagerAdapter(Context context, ArrayList<String> facts) {
 		inflater = LayoutInflater.from(context);
 		funFacts = facts;
+		Log.e("Facts", facts.toString());
 	}
 
 	public void setFunFactViewPager(FunFactViewPager pager) {
@@ -34,6 +35,7 @@ public class FunFactPagerAdapter extends PagerAdapter {
 
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
+		Log.e("create", "" + position);
 		LinearLayout layout = (LinearLayout) inflater.inflate(
 				R.layout.pager_item_fun_fact, null);
 
@@ -68,15 +70,33 @@ public class FunFactPagerAdapter extends PagerAdapter {
 				}
 			});
 		}
+		
+		layout.setTag(position);
 
-		container.addView(layout, position);
+		if(container.getChildCount() == 0) {
+			container.addView(layout);
+		} else {
+			Log.e("childs", "" + container.getChildCount());
+			Log.e("position", "" + position);
+			int index = 0;
+			while(index < container.getChildCount() && ((Integer) container.getChildAt(index).getTag()) < position) {
+				index++;
+			}
+			container.addView(layout, index);
+		}
 
 		return layout;
 	}
 
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
-		container.removeViewAt(position);
+		Log.e("destroy", "" + position);
+		for(int i = 0; i < container.getChildCount(); i++) {
+			if(((Integer) container.getChildAt(i).getTag()) == position) {
+				container.removeViewAt(i);
+				break;
+			}
+		}
 	}
 
 	@Override

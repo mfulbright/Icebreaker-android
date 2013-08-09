@@ -37,9 +37,9 @@ public class BaseActivity extends SherlockFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		// disable screen rotation for every activity
-		setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		api = null;
 		connected = false;
@@ -51,12 +51,9 @@ public class BaseActivity extends SherlockFragmentActivity {
 				log("onServiceConnected");
 				api = IBumpAPI.Stub.asInterface(binder);
 				// why are we throwing this in a new thread, you ask? Well we
-				// get
-				// NetworkOnMainThreadException's if we don't. Why does it work
-				// in
-				// the test app but not here, even when running on the same
-				// phone
-				// with the exact same code? I have no fucking clue
+				// get NetworkOnMainThreadException's if we don't. Why does it
+				// work in the test app but not here, even when running on the
+				// same phone with the exact same code? I have no fucking clue
 				new Thread() {
 					public void run() {
 						try {
