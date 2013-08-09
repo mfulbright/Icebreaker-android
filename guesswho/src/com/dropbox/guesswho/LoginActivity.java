@@ -30,12 +30,14 @@ public class LoginActivity extends BaseActivity implements
 	public void signUpButtonClicked(View v) {
 		String email = emailEditText.getText().toString();
 		// might as well make sure it's a dropbox email address
-		if(! Pattern.matches("[^@]+@[^@\\.]+\\.[^@\\.]+", email)) {
-			alert("Bad email", "Please enter a valid @dropbox.com email address");
+		if (!Pattern.matches("[^@]+@[^@\\.]+\\.[^@\\.]+", email)) {
+			alert("Bad email",
+					"Please enter a valid @dropbox.com email address");
 			return;
 		}
-		if(! email.endsWith("@dropbox.com")) {
-			alert("Dropboxers only!", "Please enter an @dropbox.com email address");
+		if (!email.endsWith("@dropbox.com")) {
+			alert("Dropboxers only!",
+					"Please enter an @dropbox.com email address");
 			return;
 		}
 		RequestQueue queue = GuessWhoApplication.getRequestQueue();
@@ -55,13 +57,23 @@ public class LoginActivity extends BaseActivity implements
 			if (response.has("success")) {
 				log("Success");
 				log(response.get("success"));
-				alert("You're in!", "We sent a confirmation email to that email address. Open it and click the link inside");
+				if (response.has("already_authenticated")
+						&& response.getInt("already_authenticated") == 1) {
+					alert("Re-sent email",
+							"That email address has been registered before - we re-sent the confirmation email anyway");
+				} else {
+					alert("You're in!",
+							"We sent a confirmation email to that email address. Open it and click the link inside");
+
+				}
 			} else if (response.has("error")) {
 				int code = response.getInt("error");
 				switch (code) {
 				case -1:
-					// not a dropbox email address. we already do checking for this but whatever
-					alert("Bad email", "It looks like that email isn't a Dropbox email address");
+					// not a dropbox email address. we already do checking for
+					// this but whatever
+					alert("Bad email",
+							"It looks like that email isn't a Dropbox email address");
 					break;
 				default:
 					// huh?
@@ -83,6 +95,7 @@ public class LoginActivity extends BaseActivity implements
 		log(error);
 		log(error.networkResponse);
 		log(error.getMessage());
-		alert("Network error", "We had trouble connecting to the site. Try again.");
+		alert("Network error",
+				"We had trouble connecting to the site. Try again.");
 	}
 }
