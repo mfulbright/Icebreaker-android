@@ -47,6 +47,12 @@ public class AuthenticateActivity extends BaseActivity implements
 				alreadyAuthed = response.getInt("already_authenticated");
 
 				switch (alreadyAuthed) {
+				case 1:
+					// the most likely reason for this is that somebody unistalled 
+					// and reinstalled the app. we'll allow it i guess
+					log("Received a user id that is already authed. Id: "
+							+ userId);
+					// note: intentionally no break here - falling through
 				case 0:
 					// this is what we expect
 					SharedPreferences appPrefs = GuessWhoApplication
@@ -55,25 +61,6 @@ public class AuthenticateActivity extends BaseActivity implements
 							.putString(GuessWhoApplication.USER_ID_KEY, userId)
 							.commit();
 					Intent intent = new Intent(this, GetTargetActivity.class);
-					startActivity(intent);
-					break;
-				case 1:
-					// ...unexpected. the only case I can really think of when
-					// this will happen
-					// is a n00b downloads the app, doesn't auth, then an old
-					// timer troll forwards
-					// them an email with an auth link. in that case we should
-					// let the n00b have
-					// the already authed userId, so that's what we'll do here
-					log("Received a user id that is already authed. Id: "
-							+ userId);
-					// todo keep this here?
-					appPrefs = GuessWhoApplication
-							.getApplicationPreferences();
-					appPrefs.edit()
-							.putString(GuessWhoApplication.USER_ID_KEY, userId)
-							.commit();
-					intent = new Intent(this, GetTargetActivity.class);
 					startActivity(intent);
 					break;
 				default:

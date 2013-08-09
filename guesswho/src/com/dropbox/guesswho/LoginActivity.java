@@ -1,5 +1,7 @@
 package com.dropbox.guesswho;
 
+import java.util.regex.Pattern;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +29,15 @@ public class LoginActivity extends BaseActivity implements
 
 	public void signUpButtonClicked(View v) {
 		String email = emailEditText.getText().toString();
-		// todo - maybe make sure it's a valid email
+		// might as well make sure it's a dropbox email address
+		if(! Pattern.matches("[^@]+@[^@\\.]+\\.[^@\\.]+", email)) {
+			alert("Bad email", "Please enter a valid @dropbox.com email address");
+			return;
+		}
+		if(! email.endsWith("@dropbox.com")) {
+			alert("Dropboxers only!", "Please enter an @dropbox.com email address");
+			return;
+		}
 		RequestQueue queue = GuessWhoApplication.getRequestQueue();
 		JsonObjectRequest request = new JsonObjectRequest(
 				Method.GET,
@@ -43,19 +53,15 @@ public class LoginActivity extends BaseActivity implements
 		log(response);
 		try {
 			if (response.has("success")) {
-				// a confirmation email was sent - nothing to do here
 				log("Success");
 				log(response.get("success"));
+				alert("You're in!", "We sent a confirmation email to that email address. Open it and click the link inside");
 			} else if (response.has("error")) {
 				int code = response.getInt("error");
 				switch (code) {
 				case -1:
-					// not a real dropbox email address
-					alert("Bad email", "It looks like that email isn't a real Dropbox email address (at least, we didn't recognize it...)");
-					break;
-				case -2:
-					// email address already used and authenticated
-					alert("Bad email", "That email address is already being used! Try again!");
+					// not a dropbox email address. we already do checking for this but whatever
+					alert("Bad email", "It looks like that email isn't a Dropbox email address");
 					break;
 				default:
 					// huh?

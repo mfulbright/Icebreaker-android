@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainContainerStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,31 +9,48 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bump phones with this mystery Dropboxer to get 1 point:" />
+        android:background="@color/darker_gray"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Bump phones with this Mystery Dropboxer to get 1 point:"
+        android:textColor="@color/lighter_blue"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <!-- todo add a src here -->
-
-        <com.android.volley.toolbox.NetworkImageView
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/clue_text"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center" />
+            android:src="@drawable/face_silhouette" />
+
+        <com.dropbox.guesswho.FunFactViewPager
+            android:id="@+id/fun_fact_pager"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Meet these HALPers to get clues:" />
+        android:background="@color/darker_gray"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Meet these HALPers to get clues:"
+        android:textColor="@color/lighter_blue"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,13 +60,15 @@
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/first_halper_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/second_halper_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,34 +79,37 @@
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/third_halper_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/fourth_halper_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="right|center_vertical"
         android:orientation="horizontal" >
 
         <Button
+            style="@style/NeutralButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:onClick="skipButtonClicked"
             android:text="Skip" />
 
-        <!-- todo image on the leaderboard button -->
-
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:onClick="leaderboardButtonClicked"
-            android:text="Leaderboard" />
+            android:src="@drawable/leaderboard" />
     </LinearLayout>
 
 </LinearLayout>

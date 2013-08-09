@@ -1,54 +1,81 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
+    style="@style/MainContainerStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context=".GetTargetActivity" >
 
-    <TextView
-        android:id="@+id/number_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/mystery_dropboxer_number"
-        android:textSize="18sp"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/clue_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:textSize="22sp"
-        android:visibility="invisible" />
-
     <ImageView
+        android:id="@+id/silhouette"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
         android:src="@drawable/silhouette" />
+
+    <!--
+    We don't really need any margin on the bottom of this view pager, 
+    since the silhouette image has a pretty good amount of white space at the top.
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/silhouette"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mystery Dropboxer"
+            android:textColor="@color/lighter_blue"
+            android:textSize="24sp" />
+
+        <com.dropbox.guesswho.FunFactViewPager
+            android:id="@+id/fun_fact_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="invisible" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/button_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_below="@id/silhouette"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
         <Button
-            android:layout_width="wrap_content"
+            style="@style/NeutralButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
             android:onClick="knowThemButtonClicked"
             android:text="I know them" />
 
         <Button
-            android:layout_width="wrap_content"
+            style="@style/PositiveButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
             android:onClick="playButtonClicked"
             android:text="Play" />
     </LinearLayout>
 
-</LinearLayout>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="leaderboardButtonClicked"
+        android:src="@drawable/leaderboard" />
+
+</RelativeLayout>

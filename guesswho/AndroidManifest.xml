@@ -72,7 +72,7 @@
             android:label="@string/title_activity_leaderboard" >
         </activity>
         <activity
-            android:name="com.dropbox.guesswho.AddFunFactActivity"
+            android:name="com.dropbox.guesswho.EditFunFactsActivity"
             android:label="@string/title_activity_add_fun_fact" >
         </activity>
     </application>

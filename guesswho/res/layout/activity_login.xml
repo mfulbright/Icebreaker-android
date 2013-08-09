@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainContainerStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -17,12 +18,15 @@
         android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your @dropbox email address"
+        android:layout_marginBottom="15dp"
+        android:hint="Enter dropbox email address"
         android:inputType="textEmailAddress" />
 
     <Button
+        style="@style/PositiveButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:onClick="signUpButtonClicked"
         android:text="Sign Up" />
 

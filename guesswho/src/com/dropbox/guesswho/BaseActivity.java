@@ -14,9 +14,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -127,8 +128,7 @@ public class BaseActivity extends SherlockFragmentActivity {
 			try {
 				api.enableBumping();
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log(e);
 			}
 		}
 	}
@@ -140,8 +140,7 @@ public class BaseActivity extends SherlockFragmentActivity {
 			try {
 				api.disableBumping();
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log(e);
 			}
 		}
 	}
@@ -155,7 +154,8 @@ public class BaseActivity extends SherlockFragmentActivity {
 
 	/*
 	 * This method exists so that subclasses can override what is sent when a
-	 * Bump occurs on their screen. (Not that any of our activities really need it)
+	 * Bump occurs on their screen. (Not that any of our activities really need
+	 * it)
 	 */
 	protected byte[] sendThroughBump() {
 		// send the user id, or an empty string if we don't have one yet
@@ -199,10 +199,14 @@ public class BaseActivity extends SherlockFragmentActivity {
 	@SuppressLint("NewApi")
 	protected void startShowLoading() {
 		if (progressBar == null) {
-			progressBar = (ProgressBar) LayoutInflater.from(this).inflate(
-					R.layout.progress_bar, null);
+			// we had the progress bar styling in xml, but it wasn't working for
+			// some reason. seriously. so now it's programmatic.
+			progressBar = new ProgressBar(this, null,
+					android.R.attr.progressBarStyleLarge);
 		}
-		ViewGroup rootContainer = (ViewGroup) findViewById(android.R.id.content);
+		// this is kinda hacky, but the root container in android is a
+		// FrameLayout
+		FrameLayout rootContainer = (FrameLayout) findViewById(android.R.id.content);
 		for (int i = 0; i < rootContainer.getChildCount(); i++) {
 			View child = rootContainer.getChildAt(i);
 			if (Build.VERSION.SDK_INT >= 11) {
@@ -212,7 +216,10 @@ public class BaseActivity extends SherlockFragmentActivity {
 				child.setVisibility(View.GONE);
 			}
 		}
-		rootContainer.addView(progressBar);
+
+		rootContainer.addView(progressBar, new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.WRAP_CONTENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
 	}
 
 	@SuppressLint("NewApi")
