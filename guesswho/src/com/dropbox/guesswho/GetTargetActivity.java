@@ -69,26 +69,43 @@ public class GetTargetActivity extends BaseActivity {
 		stopShowLoading();
 		log(response);
 		try {
-			JSONArray funFactsArray = response.getJSONArray("facts");
-			funFacts = new ArrayList<String>();
-			for (int i = 0; i < funFactsArray.length(); i++) {
-				funFacts.add(funFactsArray.getString(i));
+			if (response.has("error")) {
+				int code = response.getInt("error");
+				switch (code) {
+				case -1:
+					// no more users to play with
+					alert("You found everyone!",
+							"Aren't you a social butterfly?");
+					funFactPager.setVisibility(View.INVISIBLE);
+					buttonLayout.setVisibility(View.INVISIBLE);
+					break;
+				default:
+					// huh?
+					log("Unexpected error code: " + code);
+					break;
+				}
+			} else {
+				JSONArray funFactsArray = response.getJSONArray("facts");
+				funFacts = new ArrayList<String>();
+				for (int i = 0; i < funFactsArray.length(); i++) {
+					funFacts.add(funFactsArray.getString(i));
+				}
+				String targetId = response.getString("target_id");
+				JSONArray halperArray = response.getJSONArray("halpers");
+				halperUrls = new ArrayList<String>();
+				for (int i = 0; i < halperArray.length(); i++) {
+					JSONObject imageObject = halperArray.getJSONObject(i);
+					halperUrls.add(imageObject.getString("image"));
+				}
+				GuessWhoApplication.getApplicationPreferences().edit()
+						.putString(GuessWhoApplication.TARGET_ID_KEY, targetId)
+						.commit();
+				FunFactPagerAdapter pagerAdapter = new FunFactPagerAdapter(
+						this, funFacts);
+				funFactPager.setAdapter(pagerAdapter);
+				funFactPager.setVisibility(View.VISIBLE);
+				buttonLayout.setVisibility(View.VISIBLE);
 			}
-			String targetId = response.getString("target_id");
-			JSONArray halperArray = response.getJSONArray("halpers");
-			halperUrls = new ArrayList<String>();
-			for (int i = 0; i < halperArray.length(); i++) {
-				JSONObject imageObject = halperArray.getJSONObject(i);
-				halperUrls.add(imageObject.getString("image"));
-			}
-			GuessWhoApplication.getApplicationPreferences().edit()
-					.putString(GuessWhoApplication.TARGET_ID_KEY, targetId)
-					.commit();
-			FunFactPagerAdapter pagerAdapter = new FunFactPagerAdapter(this,
-					funFacts);
-			funFactPager.setAdapter(pagerAdapter);
-			funFactPager.setVisibility(View.VISIBLE);
-			buttonLayout.setVisibility(View.VISIBLE);
 		} catch (JSONException e) {
 			log(e);
 		}
@@ -174,6 +191,11 @@ public class GetTargetActivity extends BaseActivity {
 
 	public void leaderboardButtonClicked(View v) {
 		Intent intent = new Intent(this, LeaderboardActivity.class);
+		startActivity(intent);
+	}
+
+	public void editFactsButtonClicked(View v) {
+		Intent intent = new Intent(this, EditFunFactsActivity.class);
 		startActivity(intent);
 	}
 
